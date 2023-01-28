@@ -6,18 +6,7 @@
              Title="SearchResultsPage">
     <VerticalStackLayout>
         <controls:HyperlinkLabel
-            Text="Click me"
+            Text="I should be dynamic, created based on a search"
             Url="https://learn.microsoft.com/dotnet/" />
-        <Label 
-            Text="click here"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" >
-
-            <Label.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding OpenLinkCommand}"
-                                      CommandParameter="https://learn.microsoft.com/dotnet/maui/" />
-            </Label.GestureRecognizers>
-
-        </Label>
     </VerticalStackLayout>
 </ContentPage>
