@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Inquisitor.Pages.HomePage">
+             x:Class="Inquisitor.Pages.HomePage"
+             BackgroundColor="Black">
 
     <ScrollView>
         <Grid>
@@ -10,6 +11,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -23,21 +25,25 @@
                    FontSize="30" 
                    Text="Search by:"/>
 
-            <Button Margin="5"
+            <Button Margin="3"
                     Grid.Column="0"
                     Grid.Row="2"
                     HorizontalOptions="Center"
                     MinimumWidthRequest="250"
                     MaximumWidthRequest="250"
+                    MinimumHeightRequest="35"
+                    MaximumHeightRequest="35"
                     Text="First/Last name"
                     Clicked="OnSearchByNameClicked"/>
 
-            <Button Margin="5"
+            <Button Margin="3"
                     Grid.Column="0"
                     Grid.Row="3"
                     HorizontalOptions="Center"
                     MinimumWidthRequest="250"
                     MaximumWidthRequest="250"
+                    MinimumHeightRequest="35"
+                    MaximumHeightRequest="35"
                     Text="Username"
                     Clicked="OnSearchByUserClicked"/>
         </Grid>

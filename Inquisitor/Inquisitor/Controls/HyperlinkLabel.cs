@@ -11,10 +11,18 @@ public class HyperlinkLabel : Label
         set => SetValue(UrlProperty, value);
     }
 
-    public HyperlinkLabel()
+    public HyperlinkLabel() { }
+
+    public HyperlinkLabel(string text = "", string url = "")
     {
+        if (!string.IsNullOrWhiteSpace(text))
+            Text = text;
+
+        if (!string.IsNullOrWhiteSpace(url))
+            Url = url;
+
         TextDecorations = TextDecorations.Underline;
-        TextColor = Colors.Blue;
+        TextColor = Colors.White;
         GestureRecognizers.Add(new TapGestureRecognizer
         {
             // Launcher.OpenAsync is provided by Essentials.

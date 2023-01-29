@@ -1,13 +1,19 @@
-using System.Windows.Input;
+using Inquisitor.Controls;
 
 namespace Inquisitor.Pages;
 
 public partial class SearchResultsPage : ContentPage
 {
-	public SearchResultsPage()
+	public SearchResultsPage(IEnumerable<string> searchResults = null)
 	{
 		InitializeComponent();
-	}
 
-    public ICommand OpenLinkCommand => new Command<string>(async (url) => await Launcher.OpenAsync(url));
+        if (searchResults == null) 
+            return;
+
+        foreach (var searchResult in searchResults)
+        {
+            VStackLayout.Add(new HyperlinkLabel(searchResult, searchResult));
+        }
+    }
 }
