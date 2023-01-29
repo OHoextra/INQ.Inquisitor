@@ -2,12 +2,12 @@
 
 namespace Inquisitor;
 
-public partial class App : Application
+public partial class App : Microsoft.Maui.Controls.Application
 {
-	public App()
+	public App(HomePage page)
 	{
 		InitializeComponent();
 
-        MainPage = new NavigationPage(new HomePage());
+        MainPage = new NavigationPage(page);
     }
 }

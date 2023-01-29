@@ -49,27 +49,42 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Data.Services" Version="5.8.5" />
+	  <EmbeddedResource Include="AppSettings.json">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="7.0.2" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="Serilog" Version="2.12.0" />
+		<PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
+		<PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Inquisitor.Application\Inquisitor.Application.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Compile Update="Pages\HomePage.xaml.cs">
 	    <DependentUpon>HomePage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Pages\SearchByNamePage.xaml.cs">
-	    <DependentUpon>SearchByNamePage.xaml</DependentUpon>
+	  <Compile Update="Pages\SearchPerson.xaml.cs">
+	    <DependentUpon>SearchPerson.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Pages\SearchByUserPage.xaml.cs">
-	    <DependentUpon>SearchByUserPage.xaml</DependentUpon>
+	  <Compile Update="Pages\SearchOSINTTools.xaml.cs">
+	    <DependentUpon>SearchOSINTTools.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Pages\SearchByNamePage.xaml">
+	  <MauiXaml Update="Pages\SearchPerson.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\SearchByUserPage.xaml">
+	  <MauiXaml Update="Pages\SearchOSINTTools.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\SearchResultsPage.xaml">

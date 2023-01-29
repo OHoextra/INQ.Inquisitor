@@ -1,16 +1,25 @@
-﻿namespace Inquisitor.Pages;
+﻿using Microsoft.Extensions.Configuration;
+using Serilog;
+
+namespace Inquisitor.Pages;
 
 public partial class HomePage : ContentPage
 {
-    public HomePage()
+    private readonly IConfiguration _config;
+    private readonly ILogger _logger;
+
+    public HomePage(IConfiguration config)
 	{
-		InitializeComponent();
+        _config = config;
+        _logger = Log.ForContext<HomePage>(); 
+
+        InitializeComponent();
 	}
 
-    private async void OnSearchByNameClicked(object sender, EventArgs e) 
-        => await Navigation.PushAsync(new SearchByNamePage());
+    private async void OnSearchPersonClicked(object sender, EventArgs e) 
+        => await Navigation.PushAsync(new SearchPersonPage(_config));
 
-    private async void OnSearchByUserClicked(object sender, EventArgs e)
-        => await Navigation.PushAsync(new SearchByUserPage());
+    private async void OnSearcOSINTToolsClicked(object sender, EventArgs e)
+        => await Navigation.PushAsync(new SearchOSINTTools(_config));
 }
 
