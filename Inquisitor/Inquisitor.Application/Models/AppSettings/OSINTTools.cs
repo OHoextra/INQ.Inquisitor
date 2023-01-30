@@ -1,7 +1,7 @@
 ﻿namespace Inquisitor.Application.Models.AppSettings;
 
-public class OSINT_Tools
+public class OSINTTools
 {
-    public List<OSINT_Tool> Tools { get; set; } = new();
+    public List<OSINTTool> Tools { get; set; } = new();
 }
 

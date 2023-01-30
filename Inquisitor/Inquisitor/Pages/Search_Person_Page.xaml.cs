@@ -1,6 +1,4 @@
-using Inquisitor.Application.Models;
 using Inquisitor.Application.Models.Searches.SearchPerson;
-using Inquisitor.Application.Models.Searches.Variables;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 using ILogger = Serilog.ILogger;
@@ -8,23 +6,23 @@ using JsonSerializer = Inquisitor.Application.Utils.JsonSerializer;
 
 namespace Inquisitor.Pages;
 
-public partial class SearchPersonPage : ContentPage
+public partial class Search_Person_Page : ContentPage
 {
     private readonly List<string> _fakeSearchSources = new();
 
     private readonly IConfiguration _config;
     private readonly ILogger _logger;
 
-    public SearchPersonPage(IConfiguration config)
+    public Search_Person_Page(IConfiguration config)
     {
         _config = config;
-        _logger = Log.ForContext<SearchPersonPage>();
+        _logger = Log.ForContext<Search_Person_Page>();
 
         InitializeComponent();
     }
 
     private void OnSearchByFirstNameSubmitted(object sender, EventArgs e) 
-        => Application.Inquisitor.SearchPerson(new Search_Person_Input{Firstname = FirstNameSearchBar.Text}
+        => Application.Inquisitor.Search_Person(new Search_Person_Input{Firstname = FirstNameSearchBar.Text}
            );
 
 

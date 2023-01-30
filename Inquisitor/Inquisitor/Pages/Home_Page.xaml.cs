@@ -3,23 +3,23 @@ using Serilog;
 
 namespace Inquisitor.Pages;
 
-public partial class HomePage : ContentPage
+public partial class Home_Page : ContentPage
 {
     private readonly IConfiguration _config;
     private readonly ILogger _logger;
 
-    public HomePage(IConfiguration config)
+    public Home_Page(IConfiguration config)
 	{
         _config = config;
-        _logger = Log.ForContext<HomePage>(); 
+        _logger = Log.ForContext<Home_Page>(); 
 
         InitializeComponent();
 	}
 
     private async void OnSearchPersonClicked(object sender, EventArgs e) 
-        => await Navigation.PushAsync(new SearchPersonPage(_config));
+        => await Navigation.PushAsync(new Search_Person_Page(_config));
 
-    private async void OnSearcOSINTToolsClicked(object sender, EventArgs e)
-        => await Navigation.PushAsync(new SearchOSINTTools(_config));
+    private async void OnSearchOSINTToolsClicked(object sender, EventArgs e)
+        => await Navigation.PushAsync(new Search_OSINTTools_Page(_config));
 }
 

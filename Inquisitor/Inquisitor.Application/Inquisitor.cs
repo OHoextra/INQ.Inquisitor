@@ -6,14 +6,14 @@ using Serilog;
 
 namespace Inquisitor.Application
 {
-    public class Searcher
+    public class Inquisitor
     {
-        private readonly ILogger _logger = Log.ForContext(typeof(Searcher));
+        private readonly ILogger _logger = Log.ForContext(typeof(Inquisitor));
 
         private readonly List<string> _searchPersonUrls = new();
-        private readonly List<OSINT_Tool> _searchOSINTTools = new();
+        private readonly List<OSINTTool> _searchOSINTTools = new();
 
-        public Searcher(IConfiguration config)
+        public Inquisitor(IConfiguration config)
         {
             var settings = config.GetRequiredSection(nameof(Settings)).Get<Settings>();
             if (settings == null)
@@ -41,13 +41,9 @@ namespace Inquisitor.Application
             _logger.Debug($"{nameof(Search_OSINTTools)}>{nameof(_searchOSINTTools)} to filter by search:{Environment.NewLine}{JsonSerializer.Serialize(_searchOSINTTools)}");
             _logger.Debug($"{nameof(Search_OSINTTools)}>{nameof(input)}:{Environment.NewLine}{JsonSerializer.Serialize(input)}");
 
-            var output = new SearchPersonOutput
+            var output = new Search_OSINTTools_Output
             {
-                UrlsRelatedToPerson = SearchFromStringsByAnyContainsAnyStrings(
-                    _searchPersonUrls,
-                    input.UrlMustContain,
-                    input.Lastname,
-                    input.Username)
+  
             };
 
             _logger.Debug($"{nameof(Search_Person)}>{nameof(output)}:{Environment.NewLine}{JsonSerializer.Serialize(output)}");
@@ -55,12 +51,12 @@ namespace Inquisitor.Application
             return output;
         }
 
-        public SearchPersonOutput Search_Person(SearchPersonInput input)
+        public Search_Person_Output Search_Person(Search_Person_Input input)
         {
             _logger.Debug($"{nameof(Search_Person)}>{nameof(_searchPersonUrls)} to filter by search:{Environment.NewLine}{JsonSerializer.Serialize(_searchPersonUrls)}");
             _logger.Debug($"{nameof(Search_Person)}>{nameof(input)}:{Environment.NewLine}{JsonSerializer.Serialize(input)}");
 
-            var output = new SearchPersonOutput
+            var output = new Search_Person_Output
             {
                 UrlsRelatedToPerson = SearchFromStringsByAnyContainsAnyStrings(
                     _searchPersonUrls,

@@ -4,15 +4,15 @@ using Serilog;
 
 namespace Inquisitor.Pages;
 
-public partial class SearchResultsPage : ContentPage
+public partial class Search_Results_Page : ContentPage
 {
     private readonly IConfiguration _config;
     private readonly ILogger _logger;
 
-    public SearchResultsPage(IConfiguration config, IEnumerable<string> searchResults = null)
+    public Search_Results_Page(IConfiguration config, IEnumerable<string> searchResults = null)
     {
         _config = config;
-        _logger = Log.ForContext<SearchResultsPage>(); 
+        _logger = Log.ForContext<Search_Results_Page>(); 
 
         
         InitializeComponent();
