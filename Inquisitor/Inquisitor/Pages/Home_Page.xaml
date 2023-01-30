@@ -44,7 +44,7 @@
                     MaximumWidthRequest="250"
                     MinimumHeightRequest="35"
                     MaximumHeightRequest="35"
-                    Text="OSINT Tools"
+                    Text="OSINT Search_OSINTTool_Urls"
                     Clicked="OnSearchOSINTToolsClicked"/>
         </Grid>
     </ScrollView>

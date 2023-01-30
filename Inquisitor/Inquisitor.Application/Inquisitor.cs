@@ -11,7 +11,7 @@ namespace Inquisitor.Application
         private readonly ILogger _logger = Log.ForContext(typeof(Searcher));
 
         private readonly List<string> _searchPersonUrls = new();
-        private readonly List<string> _searchOSINTToolsUrls = new();
+        private readonly List<OSINT_Tool> _searchOSINTTools = new();
 
         public Searcher(IConfiguration config)
         {
@@ -19,21 +19,33 @@ namespace Inquisitor.Application
             if (settings == null)
                 throw new InvalidOperationException($"{nameof(settings)} == null");
 
-            _searchPersonUrls.Add(settings.SearchPerson_Url1);
-            _searchPersonUrls.Add(settings.SearchPerson_Url2);
-            _searchPersonUrls.Add(settings.SearchPerson_Url3);
+            foreach (var searchPersonUrl in settings.Search_Person_Urls)
+            {
+                _searchPersonUrls.Add(searchPersonUrl);
+            }
+
+            if (_searchPersonUrls.Count < 1)
+                throw new InvalidOperationException("_searchPersonUrls.Count < 1");
+
+            foreach (var osintTool in settings.Search_OSINTTool_Urls)
+            {
+                _searchOSINTTools.Add(osintTool);
+            }
+
+            if (_searchOSINTTools.Count < 1)
+                throw new InvalidOperationException("_searchOSINTTools.Count < 1");
         }
 
-        public SearchPersonOutput Search_OSINTTools(SearchPersonInput input)
+        public Search_OSINTTools_Output Search_OSINTTools(Search_OSINTTools_Input input)
         {
-            _logger.Debug($"{nameof(Search_OSINTTools)}>{nameof(_searchOSINTToolsUrls)} to filter by search:{Environment.NewLine}{JsonSerializer.Serialize(_searchOSINTToolsUrls)}");
+            _logger.Debug($"{nameof(Search_OSINTTools)}>{nameof(_searchOSINTTools)} to filter by search:{Environment.NewLine}{JsonSerializer.Serialize(_searchOSINTTools)}");
             _logger.Debug($"{nameof(Search_OSINTTools)}>{nameof(input)}:{Environment.NewLine}{JsonSerializer.Serialize(input)}");
 
             var output = new SearchPersonOutput
             {
                 UrlsRelatedToPerson = SearchFromStringsByAnyContainsAnyStrings(
                     _searchPersonUrls,
-                    input.Firstname,
+                    input.UrlMustContain,
                     input.Lastname,
                     input.Username)
             };

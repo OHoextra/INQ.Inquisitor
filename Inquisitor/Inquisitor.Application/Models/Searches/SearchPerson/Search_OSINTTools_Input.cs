@@ -2,6 +2,6 @@
 
 public class Search_OSINTTools_Input
 {
-    public string? NameMustContain { get; set; }
+    public string? UrlMustContain { get; set; }
     public List<string> CategoriesToMatch { get; set; } = new();
 }

@@ -24,7 +24,7 @@ public partial class SearchPersonPage : ContentPage
     }
 
     private void OnSearchByFirstNameSubmitted(object sender, EventArgs e) 
-        => Application.Inquisitor.SearchPerson(new SearchPersonInput{Firstname = FirstNameSearchBar.Text}
+        => Application.Inquisitor.SearchPerson(new Search_Person_Input{Firstname = FirstNameSearchBar.Text}
            );
 
 

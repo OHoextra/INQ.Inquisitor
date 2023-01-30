@@ -40,7 +40,7 @@ public static class MauiProgram
 
     private static void SetupServices(MauiAppBuilder builder)
     {
-        builder.Services.AddTransient<HomePage>();
+        builder.Services.AddTransient<Home_Page>();
     }
 
     private static void SetupConfiguration(MauiAppBuilder builder)

@@ -69,25 +69,28 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Pages\HomePage.xaml.cs">
-	    <DependentUpon>HomePage.xaml</DependentUpon>
+	  <Compile Update="Pages\Home_Page.xaml.cs">
+	    <DependentUpon>Home_Page.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Pages\SearchPerson.xaml.cs">
-	    <DependentUpon>SearchPerson.xaml</DependentUpon>
+	  <Compile Update="Pages\Search_Results_Page.xaml.cs">
+	    <DependentUpon>Search_Results_Page.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="Pages\SearchOSINTTools.xaml.cs">
-	    <DependentUpon>SearchOSINTTools.xaml</DependentUpon>
+	  <Compile Update="Pages\Search_Person_Page.xaml.cs">
+	    <DependentUpon>Search_Person_Page.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\Search_OSINTTools_Page.xaml.cs">
+	    <DependentUpon>Search_OSINTTools_Page.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Pages\SearchPerson.xaml">
+	  <MauiXaml Update="Pages\Search_Person_Page.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\SearchOSINTTools.xaml">
+	  <MauiXaml Update="Pages\Search_OSINTTools_Page.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\SearchResultsPage.xaml">
+	  <MauiXaml Update="Pages\Search_Results_Page.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

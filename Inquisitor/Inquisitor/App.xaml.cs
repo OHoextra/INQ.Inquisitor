@@ -4,7 +4,7 @@ namespace Inquisitor;
 
 public partial class App : Microsoft.Maui.Controls.Application
 {
-	public App(HomePage page)
+	public App(Home_Page page)
 	{
 		InitializeComponent();
 

@@ -2,10 +2,8 @@
 
 public class Settings
 {
-    public string SearchPerson_Url1 { get; set; } = string.Empty;
-    public string SearchPerson_Url2 { get; set; } = string.Empty;
-    public string SearchPerson_Url3 { get; set; } = string.Empty;
+    public List<string> Search_Person_Urls { get; set; } = new();
 
-    public List<OSINT_Tool> Tools { get; set; } = new ();
+    public List<OSINT_Tool> Search_OSINTTool_Urls { get; set; } = new ();
 }
 
