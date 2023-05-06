@@ -8,4 +8,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\INQ.Inquisitor.App\INQ.Inquisitor.App.csproj" />
+  </ItemGroup>
+
 </Project>
