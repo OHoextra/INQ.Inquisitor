@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "INQ.Inquisitor.WinForm", "I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INQ.Inquisitor.App", "INQ.Inquisitor.App\INQ.Inquisitor.App.csproj", "{E3D2873A-1B18-4FF6-9680-B36E9C0C3451}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INQ.Inquisitor.Model", "INQ.Inquisitor.Model\INQ.Inquisitor.Model.csproj", "{0433D1E2-21B3-459E-B1B0-0C2A41E18AD1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{E3D2873A-1B18-4FF6-9680-B36E9C0C3451}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3D2873A-1B18-4FF6-9680-B36E9C0C3451}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3D2873A-1B18-4FF6-9680-B36E9C0C3451}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0433D1E2-21B3-459E-B1B0-0C2A41E18AD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0433D1E2-21B3-459E-B1B0-0C2A41E18AD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0433D1E2-21B3-459E-B1B0-0C2A41E18AD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0433D1E2-21B3-459E-B1B0-0C2A41E18AD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{00E3FE58-DE5C-4D6C-BB51-45DDC54132B6} = {3EB7D2A7-7A95-4CBC-99B8-F9AB74B2A2A8}
 		{E3D2873A-1B18-4FF6-9680-B36E9C0C3451} = {67A6AD1D-958D-409E-A655-0330EFFEAA9E}
+		{0433D1E2-21B3-459E-B1B0-0C2A41E18AD1} = {67A6AD1D-958D-409E-A655-0330EFFEAA9E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61F7FB11-1E47-470C-91E2-47F8143E1572}
