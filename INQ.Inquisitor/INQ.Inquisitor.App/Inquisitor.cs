@@ -5,6 +5,7 @@ using NewsAPI.Entities.Enums;
 using PixabaySharp;
 using PixabaySharp.Enums;
 using PixabaySharp.Utility;
+using TelSearchApi;
 using ImageItem = PixabaySharp.Models.ImageItem;
 
 namespace INQ.Inquisitor.App;
@@ -39,6 +40,20 @@ public static class Inquisitor
         return result.Images.ToList();
     }
 
+    public static async Task<List<NewsArticle>> LookupPhoneNumber(
+        string query,
+        Language language = Language.NL)
+    {
+        // https://tel.search.ch/api/help.en.html
+        // https://github.com/psollberger/TelSearchApi
+        var client = new TelSearchClient("be8e45356f57a7a3c6777470a0a65bb1");
+        var query = new TelSearchQuery(client)
+        {
+            Query = query,
+            Language = "de"
+        };
+        var response = await query.ExecuteAsync();
+    }
 
     public static async Task<List<NewsArticle>> SearchNewsArticles(
         string query,
@@ -47,6 +62,7 @@ public static class Inquisitor
         DateTime? dateTo = null)
     {
         var newsClient = new NewsClient("987ff64405e64b2fa3a55a84f2334e4c");
+
         dateTo ??= DateTime.Now;
         dateFrom ??= dateTo.Value.AddDays(-3);
 
@@ -54,7 +70,8 @@ public static class Inquisitor
             await newsClient.FetchNewsAsync(new AllNewsRequest(query, sortType, dateFrom.Value, dateTo.Value));
 
         return newsResult.ResponseStatus == ResponseStatus.Ok
-            ? newsResult.Articles.WhereContainsQuery(query).ToList() // TODO: are we fitlering out all results?
+            ? newsResult.Articles.ToList() // TODO: are we fitlering out all results?
             : new List<NewsArticle>();
     }
+
 }
