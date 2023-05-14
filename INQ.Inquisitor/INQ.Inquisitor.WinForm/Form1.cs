@@ -1,4 +1,7 @@
+using INQ.Inquisitor.App;
 using INQ.Inquisitor.App.Extensions;
+using Newtonsoft.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace INQ.Inquisitor.WinForm;
 
@@ -26,7 +29,7 @@ public partial class Form1 : Form
         }
     }
 
-    private async void RichTextBox1_KeyPressAsync(object sender, KeyPressEventArgs e)
+    private async void TxtBox_Image_Query_KeyPress(object sender, KeyPressEventArgs e)
     {
         if (e.KeyChar == (char)Keys.Enter)
         {
@@ -56,6 +59,31 @@ public partial class Form1 : Form
                 tabControl_Images.TabPages.Add(tabPage);
                 //TODO: Perhaps add some resizing logic
             }
+        }
+    }
+
+    private async void TxtBox_Telephone_Query_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        if (e.KeyChar == (char)Keys.Enter)
+        {
+            var query = txtBox_Telephone_Query.Text;
+            // TODO: validate if telephone number + feedback to user
+            var data = await App.Inquisitor.LookupPhoneNumber(query);
+
+            txtBox_Telephone_Results.Text = JsonConvert.SerializeObject(data, formatting: Formatting.Indented);
+        }
+    }
+
+    private async void txtBox_Twitter_Query_KeyPress(object sender, KeyPressEventArgs e)
+    {
+
+        if (e.KeyChar == (char)Keys.Enter)
+        {
+            var query = txtBox_Twitter_Query.Text;
+
+            var users = await TwitterSearcher.SearchUsers(query);
+
+            txtBox_Twitter_Results.Text = users;
         }
     }
 }

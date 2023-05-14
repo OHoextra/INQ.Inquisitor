@@ -1,4 +1,5 @@
-﻿using INQ.Inquisitor.App.Extensions;
+﻿using LinqToTwitter;
+using LinqToTwitter.OAuth;
 using NewsAPI;
 using NewsAPI.Entities;
 using NewsAPI.Entities.Enums;
@@ -15,7 +16,7 @@ public static class Inquisitor
     public static async Task<List<ImageItem>> SearchImages(
         string query,
         Order order = Order.Popular,
-        Language language = Language.EN,
+        PixabaySharp.Enums.Language language = PixabaySharp.Enums.Language.EN,
         ImageType imageType = ImageType.All,
         Orientation orientation = Orientation.All,
         int minWidth = 800,
@@ -40,19 +41,23 @@ public static class Inquisitor
         return result.Images.ToList();
     }
 
-    public static async Task<List<NewsArticle>> LookupPhoneNumber(
+    /// <summary>
+    /// Does not seem to match or know Dutch telephone numbers?
+    /// </summary>
+    public static async Task<TelSearchQueryResponse> LookupPhoneNumber(
         string query,
-        Language language = Language.NL)
+        string language = "NL")
     {
         // https://tel.search.ch/api/help.en.html
         // https://github.com/psollberger/TelSearchApi
         var client = new TelSearchClient("be8e45356f57a7a3c6777470a0a65bb1");
-        var query = new TelSearchQuery(client)
+        var lookupRequest = new TelSearchQuery(client)
         {
             Query = query,
-            Language = "de"
+            Language = language
         };
-        var response = await query.ExecuteAsync();
+
+       return await lookupRequest.ExecuteAsync();
     }
 
     public static async Task<List<NewsArticle>> SearchNewsArticles(
