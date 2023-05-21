@@ -1,5 +1,5 @@
-using INQ.Inquisitor.App;
 using INQ.Inquisitor.App.Extensions;
+using INQ.Inquisitor.App.Searchers;
 using Newtonsoft.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -84,6 +84,18 @@ public partial class Form1 : Form
             var users = await TwitterSearcher.SearchUsers(query);
 
             txtBox_Twitter_Results.Text = users;
+        }
+    }
+
+    private void txtBox_FB_Query_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        if (e.KeyChar == (char)Keys.Enter)
+        {
+            var query = txtBox_FB_Query.Text;
+
+            var users = FacebookSearcher.SearchUsers(query);
+
+            txtBox_FB_Results.Text = JsonConvert.SerializeObject(users, formatting: Formatting.Indented); ;
         }
     }
 }

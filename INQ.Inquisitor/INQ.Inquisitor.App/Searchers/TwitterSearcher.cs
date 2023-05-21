@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Tweetinvi.Models;
 
-namespace INQ.Inquisitor.App;
+namespace INQ.Inquisitor.App.Searchers;
 
 public static class TwitterSearcher
 {
@@ -10,7 +10,7 @@ public static class TwitterSearcher
     private static readonly string ClientSecret = "AZUeV3YhimFnmW6w3r03qZCvBNrUVlZLqNK4Ds3VU1fCoi8pY-";
 
     private static readonly string BearerToken = "AAAAAAAAAAAAAAAAAAAAAI35nQEAAAAA1B3UJIta7IsZthZoz8bDgLa0cyU%3DOaZVavj3bVmQ6nUIdYfAD2dg9hdA70j7elSIM6ki7shUeQCMmW";
-   
+
     private static readonly string ConsumerKey = "CaBCOgCoPq0tnhp2eValQJI5i";
     private static readonly string ConsumerSecret = "PAp79eTKVj3Gaqmkti4tAK8ug2Avi0xAWVqY3cvxmqTBFCaoO2";
     private static readonly string AccessToken = "1239697746938023936-88p5RbarRKPC3KFcrzTWDu1EHK2lJh";
@@ -86,5 +86,5 @@ public static class TwitterSearcher
 
         return users;
     } */
-    }
+}
 

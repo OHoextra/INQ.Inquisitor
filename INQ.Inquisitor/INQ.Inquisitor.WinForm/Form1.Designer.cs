@@ -47,14 +47,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtBox_Telephone_Query = new System.Windows.Forms.RichTextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.txtBox_Twitter_Query = new System.Windows.Forms.RichTextBox();
             this.txtBox_Twitter_Results = new System.Windows.Forms.RichTextBox();
+            this.txtBox_Twitter_Query = new System.Windows.Forms.RichTextBox();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.txtBox_FB_Query = new System.Windows.Forms.RichTextBox();
+            this.txtBox_FB_Results = new System.Windows.Forms.RichTextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -63,6 +67,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -249,6 +254,14 @@
             this.tabPage4.Text = "Twitter search";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // txtBox_Twitter_Results
+            // 
+            this.txtBox_Twitter_Results.Location = new System.Drawing.Point(0, 40);
+            this.txtBox_Twitter_Results.Name = "txtBox_Twitter_Results";
+            this.txtBox_Twitter_Results.Size = new System.Drawing.Size(772, 358);
+            this.txtBox_Twitter_Results.TabIndex = 1;
+            this.txtBox_Twitter_Results.Text = "";
+            // 
             // txtBox_Twitter_Query
             // 
             this.txtBox_Twitter_Query.Location = new System.Drawing.Point(0, 0);
@@ -258,13 +271,33 @@
             this.txtBox_Twitter_Query.Text = "";
             this.txtBox_Twitter_Query.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBox_Twitter_Query_KeyPress);
             // 
-            // txtBox_Twitter_Results
+            // tabPage5
             // 
-            this.txtBox_Twitter_Results.Location = new System.Drawing.Point(0, 40);
-            this.txtBox_Twitter_Results.Name = "txtBox_Twitter_Results";
-            this.txtBox_Twitter_Results.Size = new System.Drawing.Size(772, 358);
-            this.txtBox_Twitter_Results.TabIndex = 1;
-            this.txtBox_Twitter_Results.Text = "";
+            this.tabPage5.Controls.Add(this.txtBox_FB_Results);
+            this.tabPage5.Controls.Add(this.txtBox_FB_Query);
+            this.tabPage5.Location = new System.Drawing.Point(4, 24);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(768, 398);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Facebook search";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // txtBox_FB_Query
+            // 
+            this.txtBox_FB_Query.Location = new System.Drawing.Point(0, 0);
+            this.txtBox_FB_Query.Name = "txtBox_FB_Query";
+            this.txtBox_FB_Query.Size = new System.Drawing.Size(768, 44);
+            this.txtBox_FB_Query.TabIndex = 0;
+            this.txtBox_FB_Query.Text = "";
+            this.txtBox_FB_Query.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBox_FB_Query_KeyPress);
+            // 
+            // txtBox_FB_Results
+            // 
+            this.txtBox_FB_Results.Location = new System.Drawing.Point(3, 50);
+            this.txtBox_FB_Results.Name = "txtBox_FB_Results";
+            this.txtBox_FB_Results.Size = new System.Drawing.Size(762, 345);
+            this.txtBox_FB_Results.TabIndex = 1;
+            this.txtBox_FB_Results.Text = "";
             // 
             // Form1
             // 
@@ -284,6 +317,7 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -311,5 +345,8 @@
         private TabPage tabPage4;
         private RichTextBox txtBox_Twitter_Query;
         private RichTextBox txtBox_Twitter_Results;
+        private TabPage tabPage5;
+        private RichTextBox txtBox_FB_Results;
+        private RichTextBox txtBox_FB_Query;
     }
 }
