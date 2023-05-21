@@ -18,6 +18,7 @@ var methodNames = methods.Select(method => method.Name);
 var methodNameSelection = spectreHelper.SelectionPrompt.DisplaySelectionPrompt("What method would you like to use?", methodNames);
 
 // TODO: Test IRenderable.Tree
+// TODO: https://spectreconsole.net/prompts/text
 
 // TODO: implement prompts for method params
 AnsiConsole.MarkupLine($"You have selected: [green] {classNameSelection}.{methodNameSelection}[/]!");
