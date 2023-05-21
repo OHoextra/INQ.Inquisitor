@@ -1,33 +1,21 @@
-﻿// Render a simple table with headers and rows
-
-using System.Runtime.CompilerServices;
+﻿using INQ.Inquisitor.App.Extensions;
 using Spectre.Console;
 using INQ.Inquisitor.App.Helper;
 using INQ.Inquisitor.Console.Spectre;
 
+var spectreHelper = new SpectreHelper(Color.Black, Color.Green);
 
-var searcherTypes = AssemblyHelper.LoadTypesInNamespace("App.Searchers");
-var searcherTable = TableBuilder.FunctionTableFromTypes(searcherTypes)
-    .Border(TableBorder.Rounded)
-    .BorderColor(Color.Green)
-    .Title(new TableTitle("App.Searchers"));
+var types = AssemblyHelper.LoadTypesInNamespaces(new[] { "App.Searchers", "App.Lookups" });
 
-var lookupTypes = AssemblyHelper.LoadTypesInNamespace("App.Lookups");
-var lookupTable = TableBuilder.FunctionTableFromTypes(searcherTypes)
-    .Border(TableBorder.Rounded)
-    .BorderColor(Color.Green)
-    .Title(new TableTitle("App.Lookups"));
+AnsiConsole.Write(spectreHelper.Table.CreateFunctionTable(types));
 
+var typeNames = types.Select(type => type.Name);
+var typeNameSelection = AnsiConsole.Prompt(spectreHelper.SelectionPrompt.Build("What class would you like to use?", typeNames));
 
-AnsiConsole.Write(searcherTable);
-AnsiConsole.Write(lookupTable);
+var typeMethods = types.Single(type => type.Name == typeNameSelection).GetPublicMethods();
+var typeMethodsNames = typeMethods.Select(method => method.Name);
+var typeMethodsSelection = AnsiConsole.Prompt(spectreHelper.SelectionPrompt.Build("What method would you like to use?", typeMethodsNames));
 
-// TODO: add function numbering to the 'functionTable' class and include an Ask prompt, see if Spectre has existing implementation for this
-
-// Ask for user input
-var name = AnsiConsole.Ask<string>("What function would you like to use?");
-AnsiConsole.MarkupLine($"Hello, [green]{name}[/]!");
-// Output colored text
-AnsiConsole.MarkupLine("[bold underline yellow]This[/] is [red]some[/] [blue]colored[/] text!");
+AnsiConsole.MarkupLine($"You have selected: [green]{typeMethodsSelection}[/]!");
 
 Console.ReadLine();

@@ -1,9 +1,14 @@
-﻿using INQ.Inquisitor.App.Exceptions;
+﻿using System.Reflection;
+using INQ.Inquisitor.App.Exceptions;
 
 namespace INQ.Inquisitor.App.Extensions;
 
 public static class TypeExtensions
 {
+    public static IEnumerable<MethodInfo> GetPublicMethods(this Type type) 
+        => type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
+            .Where(method => method.Name != "ToString");
+
     public static List<Type> Where_Namespace_Contains(
         this List<Type> sourceTypes, 
         string nameSpacePart)
