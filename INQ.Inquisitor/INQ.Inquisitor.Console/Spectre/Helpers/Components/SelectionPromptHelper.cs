@@ -1,8 +1,8 @@
 ﻿using Spectre.Console;
 
-namespace INQ.Inquisitor.Console.Spectre.Builders;
+namespace INQ.Inquisitor.Console.Spectre.Helpers.Components;
 
-public class SelectionPromptBuilder
+public class SelectionPromptHelper
 {
     private readonly Color _foregroundColor;
     private readonly Color _backgroundColor;
@@ -10,7 +10,7 @@ public class SelectionPromptBuilder
     private readonly Style _highlightStyle;
     private readonly Style _disabledStyle;
 
-    public SelectionPromptBuilder(Color? backgroundColor = null, Color? foregroundColor = null, Style ? baseStyle = null, Style? highlightStyle = null)
+    public SelectionPromptHelper(Color? backgroundColor = null, Color? foregroundColor = null, Style? baseStyle = null, Style? highlightStyle = null)
     {
         _backgroundColor = backgroundColor ?? Color.Black;
         _foregroundColor = foregroundColor ?? Color.Green;
@@ -21,7 +21,7 @@ public class SelectionPromptBuilder
         _highlightStyle = highlightStyle ?? new Style(foreground: _foregroundColor, background: _backgroundColor, decoration: Decoration.Underline);
     }
 
-    public SelectionPrompt<TType> Build<TType>(string title, IEnumerable<TType> choices)
+    public TType DisplaySelectionPrompt<TType>(string title, IEnumerable<TType> choices)
         where TType : notnull
     {
         var prompt = new SelectionPrompt<TType>()
@@ -33,7 +33,7 @@ public class SelectionPromptBuilder
 
         prompt.DisabledStyle = _disabledStyle;
 
-        return prompt;
+        return AnsiConsole.Prompt(prompt);
     }
 }
 

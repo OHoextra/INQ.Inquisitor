@@ -7,7 +7,10 @@ public static class TypeExtensions
 {
     public static IEnumerable<MethodInfo> GetPublicMethods(this Type type) 
         => type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
-            .Where(method => method.Name != "ToString");
+            .Where(method => method.Name != "ToString" 
+                             && method.Name != "Equals" 
+                             && method.Name != "GetType" 
+                             && method.Name != "GetHashCode");
 
     public static List<Type> Where_Namespace_Contains(
         this List<Type> sourceTypes, 

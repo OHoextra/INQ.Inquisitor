@@ -1,7 +1,7 @@
-﻿using INQ.Inquisitor.Console.Spectre.Builders;
+﻿using INQ.Inquisitor.Console.Spectre.Helpers.Components;
 using Spectre.Console;
 
-namespace INQ.Inquisitor.Console.Spectre;
+namespace INQ.Inquisitor.Console.Spectre.Helpers;
 
 public class SpectreHelper
 {
@@ -13,12 +13,12 @@ public class SpectreHelper
         _backgroundColor = backgroundColor ?? Color.Black;
         _foregroundColor = foregroundColor ?? Color.Green;
 
-        SelectionPrompt = new SelectionPromptBuilder(_backgroundColor, _foregroundColor);
-        Table = new TableBuilder(_backgroundColor, _foregroundColor);
+        SelectionPrompt = new SelectionPromptHelper(_backgroundColor, _foregroundColor);
+        Table = new TableHelper(_backgroundColor, _foregroundColor);
     }
 
-    public SelectionPromptBuilder SelectionPrompt { get; }
+    public SelectionPromptHelper SelectionPrompt { get; }
 
-    public TableBuilder Table { get; }
+    public TableHelper Table { get; }
 }
 

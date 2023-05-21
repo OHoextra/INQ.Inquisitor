@@ -4,31 +4,24 @@ using Type = System.Type;
 
 namespace INQ.Inquisitor.App.Helper;
 
-public static class AssemblyHelper
+public class AssemblyHelper
 {
-    private static readonly Assembly Assembly;
+    private readonly Assembly _assembly;
 
-    static AssemblyHelper()
+    public AssemblyHelper(string? assemblyName = null)
     {
-        var assemblyName = typeof(AssemblyHelper).Assembly.FullName;
         if (string.IsNullOrWhiteSpace(assemblyName))
-            throw new InvalidOperationException($"{nameof(assemblyName)} can not be null or whitespace.");
+            assemblyName = typeof(AssemblyHelper).Assembly.FullName;
 
-        Assembly = Assembly.Load(assemblyName);
-    }
-    
-    public static List<Type> LoadTypesInNamespace(string nameSpace = null)
-    {
-        var types = Assembly.GetTypes().ToList();
+        if (string.IsNullOrWhiteSpace(assemblyName))
+            throw new InvalidOperationException(nameof(assemblyName) + " may not be null or whitespace.");
 
-        return string.IsNullOrWhiteSpace(nameSpace)
-            ? types
-            : types.Where_Namespace_Contains(nameSpace);
+        _assembly = Assembly.Load(assemblyName);
     }
 
-    public static List<Type> LoadTypesInNamespaces(IEnumerable<string>? nameSpaces = null)
+    public List<Type> ClassesInNamespaces(IEnumerable<string>? nameSpaces = null)
     {
-        var types = Assembly.GetTypes().ToList();
+        var types = _assembly.GetPublicClasses().ToList();
 
         var nameSpaceList = nameSpaces?.ToList();
 

@@ -1,21 +1,25 @@
 ﻿using INQ.Inquisitor.App.Extensions;
 using Spectre.Console;
 using INQ.Inquisitor.App.Helper;
-using INQ.Inquisitor.Console.Spectre;
+using INQ.Inquisitor.Console.Spectre.Helpers;
 
 var spectreHelper = new SpectreHelper(Color.Black, Color.Green);
+var assemblyHelper = new AssemblyHelper();
 
-var types = AssemblyHelper.LoadTypesInNamespaces(new[] { "App.Searchers", "App.Lookups" });
+var types = assemblyHelper.ClassesInNamespaces(new[] { "App.Searchers", "App.Lookups" });
 
-AnsiConsole.Write(spectreHelper.Table.CreateFunctionTable(types));
+spectreHelper.Table.DisplayClassFunctionsTable(types);
 
-var typeNames = types.Select(type => type.Name);
-var typeNameSelection = AnsiConsole.Prompt(spectreHelper.SelectionPrompt.Build("What class would you like to use?", typeNames));
+var classNames = types.Select(type => type.Name);
+var classNameSelection = spectreHelper.SelectionPrompt.DisplaySelectionPrompt("What class would you like to use?", classNames);
 
-var typeMethods = types.Single(type => type.Name == typeNameSelection).GetPublicMethods();
-var typeMethodsNames = typeMethods.Select(method => method.Name);
-var typeMethodsSelection = AnsiConsole.Prompt(spectreHelper.SelectionPrompt.Build("What method would you like to use?", typeMethodsNames));
+var methods = types.Single(type => type.Name == classNameSelection).GetPublicMethods();
+var methodNames = methods.Select(method => method.Name);
+var methodNameSelection = spectreHelper.SelectionPrompt.DisplaySelectionPrompt("What method would you like to use?", methodNames);
 
-AnsiConsole.MarkupLine($"You have selected: [green]{typeMethodsSelection}[/]!");
+// TODO: Test IRenderable.Tree
+
+// TODO: implement prompts for method params
+AnsiConsole.MarkupLine($"You have selected: [green] {classNameSelection}.{methodNameSelection}[/]!");
 
 Console.ReadLine();
