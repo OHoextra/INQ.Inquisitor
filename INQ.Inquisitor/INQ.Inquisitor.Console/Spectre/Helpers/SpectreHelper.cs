@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using System.Text.Json;
+using INQ.Inquisitor.App.Converters.JsonConverters;
 using INQ.Inquisitor.Console.Spectre.Helpers.Components;
+using Newtonsoft.Json;
 using Spectre.Console;
 
 namespace INQ.Inquisitor.Console.Spectre.Helpers;
@@ -48,9 +50,15 @@ public class SpectreHelper
 
     public void DisplayObject(object? obj)
     {
-        var jsonObj = JsonSerializer.Serialize(obj, new JsonSerializerOptions { WriteIndented = true});
 
-        var objLines = jsonObj.Split(Environment.NewLine);
+        var settings = new JsonSerializerSettings
+        {
+            Converters = { new NoEnumerableEncapsulationConverter() }
+        };
+
+        string jsonString = JsonConvert.SerializeObject(obj, Formatting.Indented, settings);
+
+        var objLines = jsonString.Split(Environment.NewLine);
         foreach (var line in objLines)
         {
             AnsiConsole.WriteLine(line);
