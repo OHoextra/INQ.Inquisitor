@@ -52,9 +52,10 @@ public class TableHelper
         }
 
         AnsiConsole.Write(table);
+        AnsiConsole.Write(Environment.NewLine);
     }
 
-    public void DisplayClassFunctionsTable(IEnumerable<Type> types)
+    public void DisplayFunctionsTable(IEnumerable<Type> types)
     {
         if (types == default)
             throw new ArgumentDefaultException(nameof(types));
@@ -87,6 +88,7 @@ public class TableHelper
         }
 
         AnsiConsole.Write(table);
+        AnsiConsole.Write(Environment.NewLine);
     }
 
 }

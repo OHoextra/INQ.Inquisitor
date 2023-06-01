@@ -24,7 +24,7 @@ public class SelectionPromptHelper
     public TType Prompt<TType>(string title, IEnumerable<TType> choices)
         where TType : notnull
     {
-        AnsiConsole.Clear();
+        //AnsiConsole.Clear();
 
         var prompt = new SelectionPrompt<TType>()
             .Title(title)
@@ -35,19 +35,21 @@ public class SelectionPromptHelper
 
         prompt.DisabledStyle = _disabledStyle;
    
-        return AnsiConsole.Prompt(prompt);
+        var result =  AnsiConsole.Prompt(prompt);
+        //AnsiConsole.Write(Environment.NewLine);
+
+        return result;
     }
 
-    public TType PromptClassName<TType>(IEnumerable<TType> choices)
-        where TType : notnull
+    public string PromptClassName(IEnumerable<Type> types)
     {
-        return Prompt("What class would you like to use?", choices);
+        var classNames = types.Select(type => type.Name);
+        return Prompt("What class would you like to use?", classNames);
     }
 
-    public TType PromptMethodName<TType>(IEnumerable<TType> choices)
-        where TType : notnull
+    public string PromptFunctionName(IEnumerable<string> methodNames)
     {
-        return Prompt("What method would you like to use?", choices);
+        return Prompt("What function would you like to use?", methodNames);
     }
 }
 

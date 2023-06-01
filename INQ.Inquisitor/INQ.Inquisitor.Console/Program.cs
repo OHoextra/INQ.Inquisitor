@@ -6,33 +6,24 @@ using INQ.Inquisitor.Console.Spectre.Helpers;
 var spectreHelper = new SpectreHelper(Color.Black, Color.Green);
 var assemblyHelper = new AssemblyHelper();
 
-var types = assemblyHelper.ClassesInNamespaces(new[] { "App.Searchers", "App.Lookups" });
+var classes = assemblyHelper.ClassesInNamespaces(new[] { "App.Searchers", "App.Lookups" });
+var classNameSelection = spectreHelper.SelectionPrompt.PromptClassName(classes);
+AnsiConsole.MarkupLine($"Class: {classNameSelection}" + Environment.NewLine);
 
-spectreHelper.Table.DisplayClassFunctionsTable(types);
-AnsiConsole.Clear();
 
+var functions = classes.GetByName(classNameSelection).GetPublicMethods().ToList();
+var functionNameSelection = spectreHelper.SelectionPrompt.PromptFunctionName(functions.Select(method => method.Name));
+var selectedFunction = functions.GetByName(functionNameSelection);
+AnsiConsole.MarkupLine($"Function: {functionNameSelection}" + Environment.NewLine);
 
-var classNames = types.Select(type => type.Name);
-var classNameSelection = spectreHelper.SelectionPrompt.PromptClassName(classNames);
-AnsiConsole.Write("Class: " + classNameSelection);
+var parameters = selectedFunction.GetParameters();
 
-var methods = types.Single(type => type.Name == classNameSelection).GetPublicMethods().ToList();
-var methodNames = methods.Select(method => method.Name);
-var methodNameSelection = spectreHelper.SelectionPrompt.PromptMethodName(methodNames);
-AnsiConsole.Write("Function: " + methodNameSelection);
-
-var selectedMethod = methods.Single(method => method.Name == methodNameSelection);
-
-AnsiConsole.MarkupLine($"You have selected: [green] {classNameSelection}.{methodNameSelection}[/]!");
-
-var parameters = selectedMethod.GetParameters();
-// TODO provide a table overview of all parameters and according data types
-
-spectreHelper.Table.DisplayParametersTable(parameters);
+// TODO allow for complextype as json input/ additional prompts for inner parameters
+//spectreHelper.Table.DisplayParametersTable(parameters);
 
 var parameterValues = spectreHelper.PromptForParameters(parameters);
 
-var result = await selectedMethod.RunMethodAsync(parameterValues);
+var result = await selectedFunction.RunMethodAsync(parameterValues);
 
 spectreHelper.DisplayObject(result);
 

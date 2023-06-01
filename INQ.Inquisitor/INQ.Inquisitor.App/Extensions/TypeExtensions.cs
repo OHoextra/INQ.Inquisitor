@@ -5,6 +5,9 @@ namespace INQ.Inquisitor.App.Extensions;
 
 public static class TypeExtensions
 {
+    public static Type GetByName(this IEnumerable<Type> types, string name) 
+        => types.Single(type => type.Name == name);
+
     public static IEnumerable<MethodInfo> GetPublicMethods(this Type type) 
         => type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
             .Where(method => method.Name != "ToString" 

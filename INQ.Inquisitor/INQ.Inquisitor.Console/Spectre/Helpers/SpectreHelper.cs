@@ -24,7 +24,7 @@ public class SpectreHelper
         var parameterValues = new Dictionary<string, object>();
         foreach (var parameter in parameters)
         {
-            var prompt = new TextPrompt<string>($"Enter a value for parameter '{parameter.Name}' (Type: {parameter.ParameterType.Name}): ");
+            var prompt = new TextPrompt<string>($"{parameter.Name} (Type: {parameter.ParameterType.Name}) =");
             var parameterValue = AnsiConsole.Prompt(prompt);
             var convertedValue = Convert.ChangeType(parameterValue, parameter.ParameterType);
             parameterValues.Add(parameter.Name ?? "Unnamed-parameter", convertedValue);
