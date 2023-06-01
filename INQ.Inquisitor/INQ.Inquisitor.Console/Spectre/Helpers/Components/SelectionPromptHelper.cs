@@ -44,12 +44,12 @@ public class SelectionPromptHelper
     public string PromptClassName(IEnumerable<Type> types)
     {
         var classNames = types.Select(type => type.Name);
-        return Prompt("What class would you like to use?", classNames);
+        return Prompt(Environment.NewLine + "What class would you like to use?", classNames);
     }
 
     public string PromptFunctionName(IEnumerable<string> methodNames)
     {
-        return Prompt("What function would you like to use?", methodNames);
+        return Prompt(Environment.NewLine + "What function would you like to use?", methodNames);
     }
 }
 

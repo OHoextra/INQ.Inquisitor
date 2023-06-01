@@ -6,15 +6,17 @@ using INQ.Inquisitor.Console.Spectre.Helpers;
 var spectreHelper = new SpectreHelper(Color.Black, Color.Green);
 var assemblyHelper = new AssemblyHelper();
 
+spectreHelper.WriteStyled($"Welcome to Inquisitor..", Color.Pink1);
+
 var classes = assemblyHelper.ClassesInNamespaces(new[] { "App.Searchers", "App.Lookups" });
 var classNameSelection = spectreHelper.SelectionPrompt.PromptClassName(classes);
-AnsiConsole.MarkupLine($"Class: {classNameSelection}" + Environment.NewLine);
 
+spectreHelper.WriteStyled($"Class: {classNameSelection}", Color.Blue);
 
 var functions = classes.GetByName(classNameSelection).GetPublicMethods().ToList();
 var functionNameSelection = spectreHelper.SelectionPrompt.PromptFunctionName(functions.Select(method => method.Name));
 var selectedFunction = functions.GetByName(functionNameSelection);
-AnsiConsole.MarkupLine($"Function: {functionNameSelection}" + Environment.NewLine);
+spectreHelper.WriteStyled($"Function: {functionNameSelection}", Color.Red);
 
 var parameters = selectedFunction.GetParameters();
 

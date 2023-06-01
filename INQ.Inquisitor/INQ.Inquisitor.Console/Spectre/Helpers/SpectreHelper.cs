@@ -33,6 +33,19 @@ public class SpectreHelper
         return parameterValues;
     }
 
+    public void WriteStyled(string text, Color? foregroundColor = null, Color? backgroundColor = null, Decoration? decoration = null)
+    {
+        foregroundColor ??= _foregroundColor;
+        backgroundColor ??= _backgroundColor;
+
+        var style = new Style(foregroundColor, backgroundColor, decoration);
+
+        var markup = new Markup(text + Environment.NewLine, style);
+        AnsiConsole.Write(markup);
+
+        //AnsiConsole.MarkupLine(text, style);
+    }
+
     public void DisplayObject(object? obj)
     {
         var jsonObj = JsonSerializer.Serialize(obj, new JsonSerializerOptions { WriteIndented = true });
