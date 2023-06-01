@@ -1,6 +1,6 @@
-﻿using Tweetinvi;
-using Newtonsoft.Json;
-using Tweetinvi.Models;
+﻿using System.Security.Cryptography;
+using System.Text;
+using RestSharp;
 
 namespace INQ.Inquisitor.App.Searchers;
 
@@ -16,53 +16,81 @@ public static class TwitterSearcher
     private static readonly string AccessToken = "1239697746938023936-88p5RbarRKPC3KFcrzTWDu1EHK2lJh";
     private static readonly string AccessTokenSecret = "m7OSlnbUfuarW02TqbC3wPbKv4EAXZuAPLK8fwf8M30ai";
 
-    public static async Task<string> SearchUsers(string userName)
+    public static async Task<string> SearchUser(string query)
     {
-        // Replace the following with your Twitter API credentials
-        string apiKey = "YOUR_API_KEY";
-        string apiSecret = "YOUR_API_SECRET";
-        string accessToken = "YOUR_ACCESS_TOKEN";
-        string accessTokenSecret = "YOUR_ACCESS_TOKEN_SECRET";
+        // Twitter API endpoint
+        string endpoint = $"https://api.twitter.com/2/users/by/username/{query}";
 
+        var client = new RestClient(endpoint);
+        var request = new RestRequest();
+        request.AddHeader("Authorization", $"Bearer {BearerToken}");
+        request.AddUrlSegment("username", query);
+        var response = client.Execute(request);
 
-        // Set the user context access token and secret
-        string userContextAccessToken = "YOUR_USER_CONTEXT_ACCESS_TOKEN";
-        string userContextAccessTokenSecret = "YOUR_USER_CONTEXT_ACCESS_TOKEN_SECRET";
-
-        // Set the user context consumer key and secret
-        string userContextConsumerKey = "YOUR_USER_CONTEXT_CONSUMER_KEY";
-        string userContextConsumerSecret = "YOUR_USER_CONTEXT_CONSUMER_SECRET";
-
-        // Create the user context credentials
-        var userContextCredentials = new TwitterCredentials(
-            userContextAccessToken,
-            userContextAccessTokenSecret,
-            userContextConsumerKey,
-            userContextConsumerSecret
-        );
-        var userContextClient = new TwitterClient(userContextCredentials);
-        var bearerToken = await userContextClient.Auth.CreateBearerTokenAsync();
-        var appCredentials = new TwitterCredentials(apiKey, apiSecret, accessToken, accessTokenSecret)
+        if (response.IsSuccessful)
         {
-            BearerToken = bearerToken
+            return response.Content ?? string.Empty;
+        }
+
+        return response.ErrorMessage ?? string.Empty;
+    }
+    private static string GenerateOAuthHeader(string url, Dictionary<string, string> parameters, string consumerKey, string consumerSecret, string accessToken, string accessTokenSecret)
+    {
+        // Generate the timestamp and nonce
+        var timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
+        var nonce = Guid.NewGuid().ToString("N");
+
+        // Add the required OAuth parameters
+        var oauthParams = new Dictionary<string, string>
+        {
+            { "oauth_consumer_key", consumerKey },
+            { "oauth_signature_method", "HMAC-SHA1" },
+            { "oauth_timestamp", timestamp },
+            { "oauth_nonce", nonce },
+            { "oauth_version", "1.0" },
+            { "oauth_token", accessToken }
         };
 
-        // Create the main TwitterClient using the AppCredentials
-        var appClient = new TwitterClient(appCredentials);
-        // Make the API request with the main client
-        var user = await appClient.UsersV2.GetUserByNameAsync(userName);
-
-        return JsonConvert.SerializeObject(user, formatting: Formatting.Indented, new JsonSerializerSettings
+        // Combine all parameters
+        var allParams = new Dictionary<string, string>(parameters);
+        foreach (var oauthParam in oauthParams)
         {
-            MaxDepth = 10,
-            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-        });
+            allParams.Add(oauthParam.Key, oauthParam.Value);
+        }
+
+        // Sort the parameters alphabetically
+        var sortedParams = allParams.OrderBy(p => p.Key)
+                                    .ThenBy(p => p.Value)
+                                    .ToDictionary(p => p.Key, p => p.Value);
+
+        // Build the base string
+        var baseString = new StringBuilder();
+        baseString.Append("GET&");
+        baseString.Append(Uri.EscapeDataString(url));
+        baseString.Append("&");
+        baseString.Append(Uri.EscapeDataString(string.Join("&", sortedParams.Select(p => $"{p.Key}={p.Value}"))));
+
+        // Generate the signing key
+        var signingKey = $"{Uri.EscapeDataString(consumerSecret)}&{Uri.EscapeDataString(accessTokenSecret)}";
+
+        // Calculate the signature
+        using var hmac = new HMACSHA1(Encoding.ASCII.GetBytes(signingKey));
+        var signature = Convert.ToBase64String(hmac.ComputeHash(Encoding.ASCII.GetBytes(baseString.ToString())));
+
+        // Add the signature to the OAuth parameters
+        oauthParams.Add("oauth_signature", signature);
+
+        // Generate the OAuth header string
+        var oauthHeader = new StringBuilder();
+        oauthHeader.Append("OAuth ");
+        oauthHeader.Append(string.Join(", ", oauthParams.Select(p => $"{Uri.EscapeDataString(p.Key)}=\"{Uri.EscapeDataString(p.Value)}\"")));
+
+        return oauthHeader.ToString();
     }
-
-
+}
 
     /* TODO: this api requries elevated priviliges, use api v2 instead
-    public static async Task<List<User>> SearchUsers(string searchQuery)
+    public static async Task<List<User>> SearchUser(string searchQuery)
     {
         var auth = new SingleUserAuthorizer
         {
@@ -86,5 +114,5 @@ public static class TwitterSearcher
 
         return users;
     } */
-}
+
 

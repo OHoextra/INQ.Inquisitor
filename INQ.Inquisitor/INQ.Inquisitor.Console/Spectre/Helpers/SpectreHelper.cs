@@ -48,8 +48,14 @@ public class SpectreHelper
 
     public void DisplayObject(object? obj)
     {
-        var jsonObj = JsonSerializer.Serialize(obj, new JsonSerializerOptions { WriteIndented = true });
-        AnsiConsole.Write(jsonObj);
+        var jsonObj = JsonSerializer.Serialize(obj, new JsonSerializerOptions { WriteIndented = true});
+
+        var objLines = jsonObj.Split(Environment.NewLine);
+        foreach (var line in objLines)
+        {
+            AnsiConsole.WriteLine(line);
+        }
+        
     }
 
     public SelectionPromptHelper SelectionPrompt { get; }

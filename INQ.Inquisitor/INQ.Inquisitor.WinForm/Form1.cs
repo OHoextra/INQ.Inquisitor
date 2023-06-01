@@ -81,9 +81,9 @@ public partial class Form1 : Form
         {
             var query = txtBox_Twitter_Query.Text;
 
-            var users = await TwitterSearcher.SearchUsers(query);
+            var users = await TwitterSearcher.SearchUser(query);
 
-            txtBox_Twitter_Results.Text = users;
+            txtBox_Twitter_Results.Text = JsonConvert.SerializeObject(users, formatting: Formatting.Indented); 
         }
     }
 
@@ -95,7 +95,7 @@ public partial class Form1 : Form
 
             var users = FacebookSearcher.SearchUsers(query);
 
-            txtBox_FB_Results.Text = JsonConvert.SerializeObject(users, formatting: Formatting.Indented); ;
+            txtBox_FB_Results.Text = JsonConvert.SerializeObject(users, formatting: Formatting.Indented); 
         }
     }
 }
