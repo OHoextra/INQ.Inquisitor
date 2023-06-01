@@ -21,9 +21,11 @@ public class SelectionPromptHelper
         _highlightStyle = highlightStyle ?? new Style(foreground: _foregroundColor, background: _backgroundColor, decoration: Decoration.Underline);
     }
 
-    public TType DisplaySelectionPrompt<TType>(string title, IEnumerable<TType> choices)
+    public TType Prompt<TType>(string title, IEnumerable<TType> choices)
         where TType : notnull
     {
+        AnsiConsole.Clear();
+
         var prompt = new SelectionPrompt<TType>()
             .Title(title)
             .PageSize(10)
@@ -32,8 +34,20 @@ public class SelectionPromptHelper
             .HighlightStyle(_highlightStyle);
 
         prompt.DisabledStyle = _disabledStyle;
-
+   
         return AnsiConsole.Prompt(prompt);
+    }
+
+    public TType PromptClassName<TType>(IEnumerable<TType> choices)
+        where TType : notnull
+    {
+        return Prompt("What class would you like to use?", choices);
+    }
+
+    public TType PromptMethodName<TType>(IEnumerable<TType> choices)
+        where TType : notnull
+    {
+        return Prompt("What method would you like to use?", choices);
     }
 }
 

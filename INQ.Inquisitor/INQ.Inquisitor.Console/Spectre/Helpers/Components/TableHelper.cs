@@ -1,4 +1,6 @@
-﻿using INQ.Inquisitor.App.Exceptions;
+﻿using System.ComponentModel;
+using System.Reflection;
+using INQ.Inquisitor.App.Exceptions;
 using INQ.Inquisitor.App.Extensions;
 using INQ.Inquisitor.App.Helper;
 using Spectre.Console;
@@ -28,6 +30,28 @@ public class TableHelper
         _baseStyle = baseStyle ?? new Style(foreground: _foregroundColor, background: _backgroundColor);
         _headerStyle = headerStyle ?? new Style(foreground: _foregroundColor, background: _backgroundColor, decoration: Decoration.Italic);
         _titleStyle = titleStyle ?? new Style(foreground: _foregroundColor, background: _backgroundColor, decoration: Decoration.SlowBlink);
+    }
+
+    public void DisplayParametersTable(IEnumerable<ParameterInfo> parameters)
+    {
+        var table = new Table()
+            .Title("Parameters", style: _titleStyle)
+            .AddColumn(new TableColumn(new Markup("Name", _headerStyle)))
+            .AddColumn(new TableColumn(new Markup("Type", _headerStyle)));
+
+        table.Border = TableBorder.Horizontal;
+        table.BorderStyle = _borderStyle;
+
+        foreach (var parameter in parameters)
+        {
+
+            table.AddRow(
+                new Markup(parameter.Name ?? "Unnamed-Parameter", _baseStyle),
+                new Markup(parameter.ParameterType.Name, _baseStyle));
+
+        }
+
+        AnsiConsole.Write(table);
     }
 
     public void DisplayClassFunctionsTable(IEnumerable<Type> types)

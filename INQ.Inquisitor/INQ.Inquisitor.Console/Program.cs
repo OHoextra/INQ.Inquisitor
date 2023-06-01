@@ -9,18 +9,37 @@ var assemblyHelper = new AssemblyHelper();
 var types = assemblyHelper.ClassesInNamespaces(new[] { "App.Searchers", "App.Lookups" });
 
 spectreHelper.Table.DisplayClassFunctionsTable(types);
+AnsiConsole.Clear();
+
 
 var classNames = types.Select(type => type.Name);
-var classNameSelection = spectreHelper.SelectionPrompt.DisplaySelectionPrompt("What class would you like to use?", classNames);
+var classNameSelection = spectreHelper.SelectionPrompt.PromptClassName(classNames);
+AnsiConsole.Write("Class: " + classNameSelection);
 
-var methods = types.Single(type => type.Name == classNameSelection).GetPublicMethods();
+var methods = types.Single(type => type.Name == classNameSelection).GetPublicMethods().ToList();
 var methodNames = methods.Select(method => method.Name);
-var methodNameSelection = spectreHelper.SelectionPrompt.DisplaySelectionPrompt("What method would you like to use?", methodNames);
+var methodNameSelection = spectreHelper.SelectionPrompt.PromptMethodName(methodNames);
+AnsiConsole.Write("Function: " + methodNameSelection);
+
+var selectedMethod = methods.Single(method => method.Name == methodNameSelection);
+
+AnsiConsole.MarkupLine($"You have selected: [green] {classNameSelection}.{methodNameSelection}[/]!");
+
+var parameters = selectedMethod.GetParameters();
+// TODO provide a table overview of all parameters and according data types
+
+spectreHelper.Table.DisplayParametersTable(parameters);
+
+var parameterValues = spectreHelper.PromptForParameters(parameters);
+
+var result = await selectedMethod.RunMethodAsync(parameterValues);
+
+spectreHelper.DisplayObject(result);
 
 // TODO: Test IRenderable.Tree
 // TODO: https://spectreconsole.net/prompts/text
 
 // TODO: implement prompts for method params
-AnsiConsole.MarkupLine($"You have selected: [green] {classNameSelection}.{methodNameSelection}[/]!");
+
 
 Console.ReadLine();
