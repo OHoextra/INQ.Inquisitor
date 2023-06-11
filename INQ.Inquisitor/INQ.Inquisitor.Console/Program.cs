@@ -8,7 +8,7 @@ var assemblyHelper = new AssemblyHelper();
 
 spectreHelper.WriteStyled($"Welcome to Inquisitor..", Color.Pink1);
 
-var classes = assemblyHelper.ClassesInNamespaces(new[] { "App.Searchers", "App.Lookups" });
+var classes = assemblyHelper.ClassesInNamespaces(new[] { "App" });
 
 var classNameSelection = spectreHelper.Prompt.ClassName(classes);
 spectreHelper.WriteStyled($"Class: {classNameSelection}", Color.Blue);
