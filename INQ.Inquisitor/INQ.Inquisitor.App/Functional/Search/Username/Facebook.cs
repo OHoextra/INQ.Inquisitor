@@ -1,8 +1,8 @@
-﻿namespace INQ.Inquisitor.App.Functional.Searchers;
+﻿namespace INQ.Inquisitor.App.Functional.Search.Username;
 
-public static class FacebookSearcher
+public static class Facebook
 {
-    public static async Task<IEnumerable<dynamic>> SearchUsers(string query)
+    public static async Task<IEnumerable<dynamic>> Search_Users(string query)
     {
         // TODO: re-implement using FacebookCore
         var appId = "2035707606775600";

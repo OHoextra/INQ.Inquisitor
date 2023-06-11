@@ -1,6 +1,6 @@
 ﻿using INQ.Inquisitor.App.Extensions;
+using INQ.Inquisitor.App.Technical.Helper;
 using Spectre.Console;
-using INQ.Inquisitor.App.Helper;
 using INQ.Inquisitor.Console.Spectre.Helpers;
 
 var spectreHelper = new SpectreHelper(Color.Black, Color.Green);

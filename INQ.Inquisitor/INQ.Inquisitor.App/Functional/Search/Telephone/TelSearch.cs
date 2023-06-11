@@ -1,22 +1,20 @@
 ﻿using TelSearchApi;
 
-namespace INQ.Inquisitor.App.Functional.Miners;
+namespace INQ.Inquisitor.App.Functional.Search.Telephone;
 
-public static class PhoneNumberMiner
+public static class TelSearch
 {
     /// <summary>
-    /// Does not seem to match or know Dutch telephone numbers?
+    /// Does not seem to match or know Dutch telephone numbers? Only Hungarian?
     /// </summary>
-    public static async Task<TelSearchQueryResponse> Mine(
-        string query,
-        string language = "NL")
+    public static async Task<TelSearchQueryResponse> Search_PhoneNumber(string phoneNumber, string language = "NL")
     {
         // https://tel.search.ch/api/help.en.html
         // https://github.com/psollberger/TelSearchApi
         var client = new TelSearchClient("be8e45356f57a7a3c6777470a0a65bb1");
         var lookupRequest = new TelSearchQuery(client)
         {
-            Query = query,
+            Query = phoneNumber,
             Language = language
         };
 

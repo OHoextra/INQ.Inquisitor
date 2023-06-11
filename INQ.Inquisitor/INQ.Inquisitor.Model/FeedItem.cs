@@ -1,4 +1,4 @@
-﻿namespace INQ.Inquisitor.Model.ContentTypes;
+﻿namespace INQ.Inquisitor.Model;
 
 public class FeedItem
 {

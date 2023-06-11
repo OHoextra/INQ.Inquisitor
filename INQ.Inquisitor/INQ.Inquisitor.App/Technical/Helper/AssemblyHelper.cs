@@ -1,8 +1,9 @@
 ﻿using System.Reflection;
 using INQ.Inquisitor.App.Extensions;
+using INQ.Inquisitor.App.Technical.Extensions;
 using Type = System.Type;
 
-namespace INQ.Inquisitor.App.Helper;
+namespace INQ.Inquisitor.App.Technical.Helper;
 
 public class AssemblyHelper
 {

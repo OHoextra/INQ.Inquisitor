@@ -2,7 +2,6 @@
 using System.Reflection;
 using INQ.Inquisitor.App.Exceptions;
 using INQ.Inquisitor.App.Extensions;
-using INQ.Inquisitor.App.Helper;
 using Spectre.Console;
 using Color = Spectre.Console.Color;
 

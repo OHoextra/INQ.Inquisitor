@@ -1,7 +1,9 @@
 using INQ.Inquisitor.App.Extensions;
-using INQ.Inquisitor.App.Functional.Miners;
-using INQ.Inquisitor.App.Functional.Searchers;
+using INQ.Inquisitor.App.Functional.Search.Image;
+using INQ.Inquisitor.App.Functional.Search.Telephone;
+using INQ.Inquisitor.App.Functional.Search.Username;
 using INQ.Inquisitor.App.Technical.Extensions;
+using INQ.Inquisitor.Model.Article;
 using Newtonsoft.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -19,15 +21,19 @@ public partial class Form1 : Form
         if (e.KeyChar == (char)Keys.Enter)
         {
             var query = txtBox_News_Query.Text;
-            var articles = await ArticleSearcher.Search_Articles(query);
 
-            lbl_News_ResultFoundAmount.Text = $@"{articles.Count} results found";
+            var response = await App.Functional.Search.Article.NewsAPI.SearchArticles(
+                new ArticleSearchQuestion
+                {
+                    QuestionText = query
+                });
 
-            var filteredArticles = articles.WhereContainsQuery(query).ToList();
+            lbl_News_ResultFoundAmount.Text = $@"{response.Articles?.Count ?? 0} results found";
 
+            var filteredArticles = response.Articles?.WhereContainsQuery(query).ToList();
 
-            lbl_News_ResultFilteredAmount.Text = $@"{articles.Count - filteredArticles.Count} results filtered";
-            txtBox_News_Results.Text = filteredArticles.ToText();
+            lbl_News_ResultFilteredAmount.Text = $@"{response.Articles?.Count ?? 0 - filteredArticles?.Count ?? 0} results filtered";
+            txtBox_News_Results.Text = filteredArticles?.ToText();
         }
     }
 
@@ -36,7 +42,7 @@ public partial class Form1 : Form
         if (e.KeyChar == (char)Keys.Enter)
         {
             var query = txtBox_News_Query.Text;
-            var images = await ImageSearcher.SearchImages(query);
+            var images = await Pixabay.SearchImages(query);
 
             lbl_News_ResultFoundAmount.Text = $@"{images.Count} results found";
 
@@ -70,7 +76,7 @@ public partial class Form1 : Form
         {
             var query = txtBox_Telephone_Query.Text;
             // TODO: validate if telephone number + feedback to user
-            var data = await PhoneNumberMiner.Mine(query);
+            var data = await TelSearch.Search_PhoneNumber(query);
 
             txtBox_Telephone_Results.Text = JsonConvert.SerializeObject(data, formatting: Formatting.Indented);
         }
@@ -83,7 +89,7 @@ public partial class Form1 : Form
         {
             var query = txtBox_Twitter_Query.Text;
 
-            var users = await TwitterSearcher.SearchUser(query);
+            var users = await Twitter.Search_User(query);
 
             txtBox_Twitter_Results.Text = JsonConvert.SerializeObject(users, formatting: Formatting.Indented); 
         }
@@ -95,7 +101,7 @@ public partial class Form1 : Form
         {
             var query = txtBox_FB_Query.Text;
 
-            var users = FacebookSearcher.SearchUsers(query);
+            var users = Facebook.Search_Users(query);
 
             txtBox_FB_Results.Text = JsonConvert.SerializeObject(users, formatting: Formatting.Indented); 
         }
