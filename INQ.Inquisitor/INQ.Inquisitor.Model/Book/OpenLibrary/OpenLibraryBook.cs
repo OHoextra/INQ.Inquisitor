@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace INQ.Inquisitor.Model;
+namespace INQ.Inquisitor.Model.Book.OpenLibrary;
 
 public class OpenLibraryBook
 {

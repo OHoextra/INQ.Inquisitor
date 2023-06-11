@@ -1,4 +1,4 @@
-﻿namespace INQ.Inquisitor.Model;
+﻿namespace INQ.Inquisitor.Model.Username.Twitter;
 
 public class TwitterUserResponse
 {
