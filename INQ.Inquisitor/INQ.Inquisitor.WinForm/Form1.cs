@@ -1,5 +1,7 @@
 using INQ.Inquisitor.App.Extensions;
-using INQ.Inquisitor.App.Searchers;
+using INQ.Inquisitor.App.Functional.Miners;
+using INQ.Inquisitor.App.Functional.Searchers;
+using INQ.Inquisitor.App.Technical.Extensions;
 using Newtonsoft.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -17,7 +19,7 @@ public partial class Form1 : Form
         if (e.KeyChar == (char)Keys.Enter)
         {
             var query = txtBox_News_Query.Text;
-            var articles = await App.Inquisitor.SearchNewsArticles(query);
+            var articles = await ArticleSearcher.Search_Articles(query);
 
             lbl_News_ResultFoundAmount.Text = $@"{articles.Count} results found";
 
@@ -34,7 +36,7 @@ public partial class Form1 : Form
         if (e.KeyChar == (char)Keys.Enter)
         {
             var query = txtBox_News_Query.Text;
-            var images = await App.Inquisitor.SearchImages(query);
+            var images = await ImageSearcher.SearchImages(query);
 
             lbl_News_ResultFoundAmount.Text = $@"{images.Count} results found";
 
@@ -68,7 +70,7 @@ public partial class Form1 : Form
         {
             var query = txtBox_Telephone_Query.Text;
             // TODO: validate if telephone number + feedback to user
-            var data = await App.Inquisitor.LookupPhoneNumber(query);
+            var data = await PhoneNumberMiner.Mine(query);
 
             txtBox_Telephone_Results.Text = JsonConvert.SerializeObject(data, formatting: Formatting.Indented);
         }

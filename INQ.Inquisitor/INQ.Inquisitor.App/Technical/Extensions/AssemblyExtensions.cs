@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace INQ.Inquisitor.App.Extensions;
+namespace INQ.Inquisitor.App.Technical.Extensions;
 
 public static class AssemblyExtensions
 {

@@ -1,9 +1,11 @@
-﻿namespace INQ.Inquisitor.App;
+﻿using System.Security.Cryptography;
+using System.Text;
 
-public class OAuthClient : HttpClient
+namespace INQ.Inquisitor.App;
+
+public class OAuthHttpClient : HttpClient
 {
-    public OAuthClient(string endpoint, string consumerKey, string consumerSecret, string accessToken,
-        string accessTokenSecret)
+    public OAuthHttpClient(string endpoint, string consumerKey, string consumerSecret, string accessToken, string accessTokenSecret)
     {
         var oauthHeader =
             GenerateOAuthHeader(endpoint, consumerKey, consumerSecret, accessToken, accessTokenSecret);
@@ -13,11 +15,9 @@ public class OAuthClient : HttpClient
     private string GenerateOAuthHeader(string url, string consumerKey, string consumerSecret, string accessToken,
         string accessTokenSecret)
     {
-        // Generate the timestamp and nonce
         var timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString();
         var nonce = Guid.NewGuid().ToString("N");
 
-        // Add the required OAuth parameters
         var oauthParams = new SortedDictionary<string, string>
         {
             { "oauth_consumer_key", consumerKey },
@@ -28,29 +28,18 @@ public class OAuthClient : HttpClient
             { "oauth_token", accessToken }
         };
 
-        // Build the base string
-        var baseString = new System.Text.StringBuilder();
+        var baseString = new StringBuilder();
         baseString.Append("GET&");
         baseString.Append(Uri.EscapeDataString(url));
         baseString.Append("&");
-        baseString.Append(
-            Uri.EscapeDataString(string.Join("&", oauthParams.Select(kvp => $"{kvp.Key}={kvp.Value}"))));
-
-        // Generate the signing key
+        baseString.Append(Uri.EscapeDataString(string.Join("&", oauthParams.Select(kvp => $"{kvp.Key}={kvp.Value}"))));
+        
         var signingKey = $"{Uri.EscapeDataString(consumerSecret)}&{Uri.EscapeDataString(accessTokenSecret)}";
-
-        // Calculate the signature
-        using var hmacsha1 =
-            new System.Security.Cryptography.HMACSHA1(System.Text.Encoding.ASCII.GetBytes(signingKey));
-        var signature =
-            Convert.ToBase64String(
-                hmacsha1.ComputeHash(System.Text.Encoding.ASCII.GetBytes(baseString.ToString())));
-
-        // Add the signature to the OAuth parameters
+        using var hmac1 = new HMACSHA1(Encoding.ASCII.GetBytes(signingKey));
+        var signature = Convert.ToBase64String(hmac1.ComputeHash(Encoding.ASCII.GetBytes(baseString.ToString())));
         oauthParams.Add("oauth_signature", signature);
+        var oauthHeader = new StringBuilder();
 
-        // Generate the OAuth header string
-        var oauthHeader = new System.Text.StringBuilder();
         oauthHeader.Append("OAuth ");
         oauthHeader.Append(string.Join(", ",
             oauthParams.Select(kvp => $"{kvp.Key}=\"{Uri.EscapeDataString(kvp.Value)}\"")));

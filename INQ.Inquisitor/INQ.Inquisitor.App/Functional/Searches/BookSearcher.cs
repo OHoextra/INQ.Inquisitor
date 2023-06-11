@@ -1,13 +1,13 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace INQ.Inquisitor.App.Searchers;
+namespace INQ.Inquisitor.App.Functional.Searchers;
 
 public static class BookSearcher
 {
     private static readonly string OpenLibraryUrl = "http://openlibrary.org/";
 
-    public static async Task<JArray> SearchBooksAsync(string query)
+    public static async Task<JArray> Search_BooksAsync(string query)
     {
         using var httpClient = new HttpClient();
 

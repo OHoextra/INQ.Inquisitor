@@ -1,4 +1,4 @@
-﻿namespace INQ.Inquisitor.App.Searchers;
+﻿namespace INQ.Inquisitor.App.Functional.Searchers;
 
 public static class FacebookSearcher
 {

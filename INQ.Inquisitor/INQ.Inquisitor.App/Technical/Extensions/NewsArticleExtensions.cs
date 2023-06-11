@@ -1,6 +1,6 @@
 ﻿using NewsAPI.Entities;
 
-namespace INQ.Inquisitor.App.Extensions;
+namespace INQ.Inquisitor.App.Technical.Extensions;
 
 public static class NewsArticleExtensions
 {
@@ -12,7 +12,7 @@ public static class NewsArticleExtensions
         outputArticlesList.AddRange(inputArticlesList
             .Where(x => !string.IsNullOrWhiteSpace(x.Url))
             .Where(x => x.Url.Contains(query) && !outputArticlesList.Contains(x)));
-        
+
         outputArticlesList.AddRange(inputArticlesList
             .Where(x => !string.IsNullOrWhiteSpace(x.Author))
             .Where(x => x.Author.Contains(query) && !outputArticlesList.Contains(x)));

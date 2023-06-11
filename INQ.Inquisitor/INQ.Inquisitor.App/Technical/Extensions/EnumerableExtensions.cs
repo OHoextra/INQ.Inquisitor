@@ -1,6 +1,6 @@
 ﻿using INQ.Inquisitor.App.Exceptions;
 
-namespace INQ.Inquisitor.App.Extensions;
+namespace INQ.Inquisitor.App.Technical.Extensions;
 
 public static class EnumerableExtensions
 {

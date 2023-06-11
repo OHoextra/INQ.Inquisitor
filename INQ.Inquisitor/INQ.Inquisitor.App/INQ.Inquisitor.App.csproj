@@ -20,8 +20,4 @@
     <ProjectReference Include="..\INQ.Inquisitor.Model\INQ.Inquisitor.Model.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Lookups\" />
-  </ItemGroup>
-
 </Project>

@@ -2,7 +2,7 @@
 using System.Text;
 using RestSharp;
 
-namespace INQ.Inquisitor.App.Searchers;
+namespace INQ.Inquisitor.App.Functional.Searchers;
 
 public static class TwitterSearcher
 {
@@ -89,30 +89,30 @@ public static class TwitterSearcher
     }
 }
 
-    /* TODO: this api requries elevated priviliges, use api v2 instead
-    public static async Task<List<User>> SearchUser(string searchQuery)
+/* TODO: this api requries elevated priviliges, use api v2 instead
+public static async Task<List<User>> SearchUser(string searchQuery)
+{
+    var auth = new SingleUserAuthorizer
     {
-        var auth = new SingleUserAuthorizer
+        CredentialStore = new SingleUserInMemoryCredentialStore
         {
-            CredentialStore = new SingleUserInMemoryCredentialStore
-            {
-                ConsumerKey = "gtZUt5jh1quKqXgAvqDyroQQO",
-                ConsumerSecret = "VwordVjlJqwZZNtDKWMYIOf5l5lFjvw2UmD6k1Tp4OAgnYJKY8",
-                AccessToken = "1239697746938023936-R7sw1hN7aMqC1A4w8TNZpdlDJDHOsm",
-                AccessTokenSecret = "ipALheAr2gNfM4C0dUHpBfIrqylRp7CAbg70kipol5CBc"
-            }
-        };
+            ConsumerKey = "gtZUt5jh1quKqXgAvqDyroQQO",
+            ConsumerSecret = "VwordVjlJqwZZNtDKWMYIOf5l5lFjvw2UmD6k1Tp4OAgnYJKY8",
+            AccessToken = "1239697746938023936-R7sw1hN7aMqC1A4w8TNZpdlDJDHOsm",
+            AccessTokenSecret = "ipALheAr2gNfM4C0dUHpBfIrqylRp7CAbg70kipol5CBc"
+        }
+    };
 
-        var twitterContext = new TwitterContext(auth);
+    var twitterContext = new TwitterContext(auth);
 
-        var users = await (from user in twitterContext.User
-                where user.Type == UserType.Search &&
-                      user.Query == searchQuery &&
-                      user.Count == 10
-                select user)
-            .ToListAsync();
+    var users = await (from user in twitterContext.User
+            where user.Type == UserType.Search &&
+                  user.Query == searchQuery &&
+                  user.Count == 10
+            select user)
+        .ToListAsync();
 
-        return users;
-    } */
+    return users;
+} */
 
 

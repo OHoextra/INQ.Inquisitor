@@ -8,7 +8,7 @@ var assemblyHelper = new AssemblyHelper();
 
 spectreHelper.WriteStyled($"Welcome to Inquisitor..", Color.Pink1);
 
-var classes = assemblyHelper.ClassesInNamespaces(new[] { "App" });
+var classes = assemblyHelper.ClassesInNamespaces(new[] { "App.Functional" });
 
 var classNameSelection = spectreHelper.Prompt.ClassName(classes);
 spectreHelper.WriteStyled($"Class: {classNameSelection}", Color.Blue);
@@ -34,6 +34,5 @@ spectreHelper.DisplayObject(result);
 // TODO: https://spectreconsole.net/prompts/text
 
 // TODO: implement prompts for method params
-
 
 Console.ReadLine();
