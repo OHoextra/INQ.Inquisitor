@@ -1,34 +1,43 @@
-﻿using INQ.Inquisitor.Model;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace INQ.Inquisitor.App.Searchers;
 
 public static class BookSearcher
 {
-    public static async Task<List<OpenLibraryBook>> SearchBooksAsync(string query)
+    private static readonly string OpenLibraryUrl = "http://openlibrary.org/";
+
+    public static async Task<JArray> SearchBooksAsync(string query)
     {
-        // Create an HttpClient instance
         using var httpClient = new HttpClient();
 
-        // Set the base URL of the Open Library API
-        string baseUrl = "http://openlibrary.org/";
+        var requestUrl = $"{OpenLibraryUrl}search.json?q={Uri.EscapeDataString(query)}";
 
-        // Build the search API endpoint URL
-        string apiUrl = $"{baseUrl}search.json?q={Uri.EscapeDataString(query)}";
-
-        // Send the HTTP GET request to the API
-        var response = await httpClient.GetAsync(apiUrl);
-
-        // Ensure a successful response
+        var response = await httpClient.GetAsync(requestUrl);
         response.EnsureSuccessStatusCode();
 
-        // Read the response content as a string
+        var responseBody = await response.Content.ReadAsStringAsync();
+
+        dynamic searchResult = JsonConvert.DeserializeObject(responseBody);
+        dynamic docs = searchResult.docs;
+
+        return docs;
+    }
+
+    public static async Task<JObject> GetBookDetailsAsync(string identifier)
+    {
+        using HttpClient httpClient = new();
+        var baseUrl = "http://openlibrary.org/";
+        var apiUrl = $"{baseUrl}books/{identifier}.json";
+
+        HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
+        response.EnsureSuccessStatusCode();
+
         string responseBody = await response.Content.ReadAsStringAsync();
 
-        // Deserialize the response JSON into an object
-        var searchResult = JsonConvert.DeserializeObject<OpenLibrarySearchResult>(responseBody);
+        dynamic bookDetails = JObject.Parse(responseBody);
 
-        return searchResult.Docs;
+        return bookDetails;
     }
 }
 

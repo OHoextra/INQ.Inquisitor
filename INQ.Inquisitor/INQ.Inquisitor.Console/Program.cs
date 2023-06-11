@@ -9,15 +9,16 @@ var assemblyHelper = new AssemblyHelper();
 spectreHelper.WriteStyled($"Welcome to Inquisitor..", Color.Pink1);
 
 var classes = assemblyHelper.ClassesInNamespaces(new[] { "App.Searchers", "App.Lookups" });
-var classNameSelection = spectreHelper.SelectionPrompt.PromptClassName(classes);
 
+var classNameSelection = spectreHelper.Prompt.ClassName(classes);
 spectreHelper.WriteStyled($"Class: {classNameSelection}", Color.Blue);
 
 var functions = classes.GetByName(classNameSelection).GetPublicMethods().ToList();
-var functionNameSelection = spectreHelper.SelectionPrompt.PromptFunctionName(functions.Select(method => method.Name));
-var selectedFunction = functions.GetByName(functionNameSelection);
+
+var functionNameSelection = spectreHelper.Prompt.FunctionName(functions);
 spectreHelper.WriteStyled($"Function: {functionNameSelection}", Color.Red);
 
+var selectedFunction = functions.GetByName(functionNameSelection);
 var parameters = selectedFunction.GetParameters();
 
 // TODO allow for complextype as json input/ additional prompts for inner parameters

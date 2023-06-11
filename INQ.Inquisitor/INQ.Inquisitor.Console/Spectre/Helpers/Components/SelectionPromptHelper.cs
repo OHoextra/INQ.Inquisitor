@@ -1,4 +1,5 @@
-﻿using Spectre.Console;
+﻿using System.Reflection;
+using Spectre.Console;
 
 namespace INQ.Inquisitor.Console.Spectre.Helpers.Components;
 
@@ -41,14 +42,15 @@ public class SelectionPromptHelper
         return result;
     }
 
-    public string PromptClassName(IEnumerable<Type> types)
+    public string ClassName(IEnumerable<Type> classes)
     {
-        var classNames = types.Select(type => type.Name);
+        var classNames = classes.Select(type => type.Name);
         return Prompt(Environment.NewLine + "What class would you like to use?", classNames);
     }
 
-    public string PromptFunctionName(IEnumerable<string> methodNames)
+    public string FunctionName(IEnumerable<MethodInfo> methods)
     {
+        var methodNames = methods.Select(method => method.Name);
         return Prompt(Environment.NewLine + "What function would you like to use?", methodNames);
     }
 }

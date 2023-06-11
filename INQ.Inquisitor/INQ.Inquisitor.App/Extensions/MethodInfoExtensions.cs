@@ -10,23 +10,24 @@ public static class MethodInfoExtensions
     public static async Task<object?> RunMethodAsync(this MethodInfo selectedMethod,
         Dictionary<string, object> parameterValues)
     {
-        object? result;
+        object? result = null;
+        var parameterArray = parameterValues.Values.ToArray();
+
         if (selectedMethod.ReturnType == typeof(Task))
         {
-            result = selectedMethod.Invoke(null, parameterValues.Values.ToArray());
-            await ((Task)result);
+            result = selectedMethod.Invoke(null, parameterArray);
+            await ((Task)result).ConfigureAwait(false);
         }
-        else if (selectedMethod.ReturnType.IsGenericType &&
-                 selectedMethod.ReturnType.GetGenericTypeDefinition() == typeof(Task<>))
+        else if (selectedMethod.ReturnType.IsGenericType && selectedMethod.ReturnType.GetGenericTypeDefinition() == typeof(Task<>))
         {
-            var task = (Task)selectedMethod.Invoke(null, parameterValues.Values.ToArray());
+            var task = (Task)selectedMethod.Invoke(null, parameterArray);
             await task.ConfigureAwait(false);
             var resultProperty = task.GetType().GetProperty("Result");
             result = resultProperty.GetValue(task);
         }
         else
         {
-            result = selectedMethod.Invoke(null, parameterValues.Values.ToArray());
+            result = selectedMethod.Invoke(null, parameterArray);
         }
 
         return result;

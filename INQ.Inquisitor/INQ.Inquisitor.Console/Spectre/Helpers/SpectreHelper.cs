@@ -17,7 +17,7 @@ public class SpectreHelper
         _backgroundColor = backgroundColor ?? Color.Black;
         _foregroundColor = foregroundColor ?? Color.Green;
 
-        SelectionPrompt = new SelectionPromptHelper(_backgroundColor, _foregroundColor);
+        Prompt = new SelectionPromptHelper(_backgroundColor, _foregroundColor);
         Table = new TableHelper(_backgroundColor, _foregroundColor);
     }
 
@@ -66,7 +66,7 @@ public class SpectreHelper
         
     }
 
-    public SelectionPromptHelper SelectionPrompt { get; }
+    public SelectionPromptHelper Prompt { get; }
 
     public TableHelper Table { get; }
 }
