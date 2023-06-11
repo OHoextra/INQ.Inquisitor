@@ -3,9 +3,9 @@ using NewsAPI;
 using NewsAPI.Entities;
 using NewsAPI.Entities.Enums;
 
-namespace INQ.Inquisitor.App.Functional.Search.Article;
+namespace INQ.Inquisitor.App.Functional.Search.Article.NewsAPI;
 
-public static class NewsAPI
+public static class NewsAPI_Searcher
 {
     private static readonly string NewsAPI_APIKey = "987ff64405e64b2fa3a55a84f2334e4c";
 
@@ -27,7 +27,7 @@ public static class NewsAPI
                 question.To.Value));
 
         return newsResult.ResponseStatus == ResponseStatus.Ok
-            ? new ArticleSearchAnswer{ Articles = newsResult.Articles.ToList() }
+            ? new ArticleSearchAnswer { Articles = newsResult.Articles.ToList() }
             : new ArticleSearchAnswer();
     }
 }

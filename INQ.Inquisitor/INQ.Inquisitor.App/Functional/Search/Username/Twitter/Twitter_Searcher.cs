@@ -1,8 +1,8 @@
 ﻿using RestSharp;
 
-namespace INQ.Inquisitor.App.Functional.Search.Username;
+namespace INQ.Inquisitor.App.Functional.Search.Username.Twitter;
 
-public static class Twitter
+public static class Twitter_Searcher
 {
     private static readonly string ClientId = "cjNCc2l5ejB3ODdFbktnUFc4Yy06MTpjaQ";
     private static readonly string ClientSecret = "AZUeV3YhimFnmW6w3r03qZCvBNrUVlZLqNK4Ds3VU1fCoi8pY-";
@@ -17,7 +17,7 @@ public static class Twitter
 
     public static async Task<string> Search_User(string query)
     {
-        // Twitter API endpoint
+        // Twitter_Searcher API endpoint
         string endpoint = $"https://api.twitter.com/2/users/by/username/{query}";
 
         var client = new RestClient(endpoint);

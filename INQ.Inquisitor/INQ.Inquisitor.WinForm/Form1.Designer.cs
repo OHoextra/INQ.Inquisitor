@@ -251,7 +251,7 @@
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(768, 398);
             this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Twitter search";
+            this.tabPage4.Text = "Twitter_Searcher search";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // txtBox_Twitter_Results
@@ -279,7 +279,7 @@
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Size = new System.Drawing.Size(768, 398);
             this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Facebook search";
+            this.tabPage5.Text = "Facebook_Searcher search";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // txtBox_FB_Query

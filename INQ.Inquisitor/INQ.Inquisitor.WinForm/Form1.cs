@@ -1,7 +1,9 @@
 using INQ.Inquisitor.App.Extensions;
-using INQ.Inquisitor.App.Functional.Search.Image;
-using INQ.Inquisitor.App.Functional.Search.Telephone;
-using INQ.Inquisitor.App.Functional.Search.Username;
+using INQ.Inquisitor.App.Functional.Search.Article.NewsAPI.Extensions;
+using INQ.Inquisitor.App.Functional.Search.Image.Pixabay;
+using INQ.Inquisitor.App.Functional.Search.Telephone.TelSearch;
+using INQ.Inquisitor.App.Functional.Search.Username.Facebook;
+using INQ.Inquisitor.App.Functional.Search.Username.Twitter;
 using INQ.Inquisitor.App.Technical.Extensions;
 using INQ.Inquisitor.Model.Article;
 using Newtonsoft.Json;
@@ -22,7 +24,7 @@ public partial class Form1 : Form
         {
             var query = txtBox_News_Query.Text;
 
-            var response = await App.Functional.Search.Article.NewsAPI.SearchArticles(
+            var response = await App.Functional.Search.Article.NewsAPI.NewsAPI_Searcher.SearchArticles(
                 new ArticleSearchQuestion
                 {
                     QuestionText = query
@@ -42,7 +44,7 @@ public partial class Form1 : Form
         if (e.KeyChar == (char)Keys.Enter)
         {
             var query = txtBox_News_Query.Text;
-            var images = await Pixabay.SearchImages(query);
+            var images = await Pixabay_Searcher.SearchImages(query);
 
             lbl_News_ResultFoundAmount.Text = $@"{images.Count} results found";
 
@@ -89,7 +91,7 @@ public partial class Form1 : Form
         {
             var query = txtBox_Twitter_Query.Text;
 
-            var users = await Twitter.Search_User(query);
+            var users = await Twitter_Searcher.Search_User(query);
 
             txtBox_Twitter_Results.Text = JsonConvert.SerializeObject(users, formatting: Formatting.Indented); 
         }
@@ -101,7 +103,7 @@ public partial class Form1 : Form
         {
             var query = txtBox_FB_Query.Text;
 
-            var users = Facebook.Search_Users(query);
+            var users = Facebook_Searcher.Search_Users(query);
 
             txtBox_FB_Results.Text = JsonConvert.SerializeObject(users, formatting: Formatting.Indented); 
         }

@@ -3,9 +3,9 @@ using PixabaySharp.Enums;
 using PixabaySharp.Models;
 using PixabaySharp.Utility;
 
-namespace INQ.Inquisitor.App.Functional.Search.Image;
+namespace INQ.Inquisitor.App.Functional.Search.Image.Pixabay;
 
-public static class Pixabay
+public static class Pixabay_Searcher
 {
     public static async Task<List<ImageItem>> SearchImages(
         string query,

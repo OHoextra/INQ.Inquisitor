@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace INQ.Inquisitor.App.Functional.Search.Book;
+namespace INQ.Inquisitor.App.Functional.Search.Book.OpenLibrary;
 
-public static class OpenLibrary
+public static class OpenLibrary_Searcher
 {
     private static readonly string OpenLibraryUrl = "http://openlibrary.org/";
 

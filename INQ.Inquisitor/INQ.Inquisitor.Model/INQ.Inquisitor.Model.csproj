@@ -13,6 +13,9 @@
 
   <ItemGroup>
     <Folder Include="Book\" />
+    <Folder Include="Image\" />
+    <Folder Include="Username\" />
+    <Folder Include="Telephone\" />
   </ItemGroup>
 
 </Project>

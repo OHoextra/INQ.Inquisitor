@@ -1,6 +1,6 @@
 ﻿using TelSearchApi;
 
-namespace INQ.Inquisitor.App.Functional.Search.Telephone;
+namespace INQ.Inquisitor.App.Functional.Search.Telephone.TelSearch;
 
 public static class TelSearch
 {

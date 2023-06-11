@@ -1,6 +1,6 @@
 ﻿using NewsAPI.Entities;
 
-namespace INQ.Inquisitor.App.Technical.Extensions;
+namespace INQ.Inquisitor.App.Functional.Search.Article.NewsAPI.Extensions;
 
 public static class NewsArticleExtensions
 {

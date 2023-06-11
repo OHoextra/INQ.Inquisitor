@@ -1,6 +1,6 @@
-﻿namespace INQ.Inquisitor.App.Functional.Search.Username;
+﻿namespace INQ.Inquisitor.App.Functional.Search.Username.Facebook;
 
-public static class Facebook
+public static class Facebook_Searcher
 {
     public static async Task<IEnumerable<dynamic>> Search_Users(string query)
     {
