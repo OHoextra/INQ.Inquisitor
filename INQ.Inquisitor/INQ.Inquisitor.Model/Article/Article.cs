@@ -1,6 +1,6 @@
 ﻿namespace INQ.Inquisitor.Model.Article;
 
-public class FeedItem
+public class Article
 {
     public string Title { get; set; }
     public string Text { get; set; }
